@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -92,7 +91,9 @@ public class TabFragment extends Fragment {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
             // Refresh Tab
-            final TabFragment fragment = (TabFragment)((MainActivity)getActivity()).mSectionsPagerAdapter.getFragment(position);
+            final TabFragment fragment = (TabFragment)((MainActivity)getActivity())
+                    .mSectionsPagerAdapter
+                    .getFragment(position);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
