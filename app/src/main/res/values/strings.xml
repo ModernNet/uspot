@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App strings (inside use)-->
+    <string name="app_name">uSpot</string>
+    <string name="app_id" translatable="false">08014</string>
+    <string name="TokenApp" translatable="false">l7xx3a3a76fb2c184fe388a006f921b84c21</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_post">Submit new place</string>
+
+    <!--Categories -->
+    <string-array name="categories">
+        <item>Places</item>
+        <item>Food</item>
+        <item>Nightlife</item>
+        <item>Culture</item>
+        <item>Leisure</item>
+        <item>Shopping</item>
+    </string-array>
+
+    <!--Titles and messages -->
+    <string name="location_request_title">Enable Location</string>
+    <string name="location_request_message">Please enable location</string>
+    <string name="succ_sent">Successfully sent!</string>
+
+    <!--Single Strings -->
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="submit">Submit</string>
+    <string name="locate">Locate</string>
+    <string name="address">Address</string>
+
+    <!--Location Messages -->
+    <string name="auto_location_disable">Auto Location Disabled</string>
+    <string name="auto_location">Auto Location Activated</string>
+    <string name="enable_location">Auto Location</string>
+
+    <!-- Error Strings -->
+    <string name="post_not_avaliable">We couldn\'t post, check your connection please</string>
+    <string name="GooglePlayEnable">Error: It seems that you don\'t have Google Play Services</string>
+    <string name="internet_not_available">No network connection available.</string>
+    <string name="ee_trick">Did you try to trick me? REALLY?</string>
+    <string name="missing_description">Description is missing</string>
+    <string name="error_adress">Error: We couldn\'t find this address</string>
+    <string name="err_form_not_completed">Fill form before trying to submit</string>
+    <string name="reduced_mobility">Disabled Access</string>
+    <string name="media_url">Media Url</string>
+
+    <!--Dialog Confirm -->
+    <string name="confirmation_title">Are you sure?</string>
+    <string name="confirmation_message">Once you confirm, you won\'t be able to modify any of this information</string>
+    <string name="confirmation_positive">Confirm</string>
+    <string name="location_request_message_start">Please enable location and refresh the tab, in order to see the distance from you current position to the points</string>
+
+</resources>
