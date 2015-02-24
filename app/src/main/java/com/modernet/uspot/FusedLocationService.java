@@ -23,9 +23,9 @@ public class FusedLocationService implements
     private static final long ONE_MIN = 1000 * 60;
     private static final long REFRESH_TIME = ONE_MIN * 5;
     private static final float MINIMUM_ACCURACY = 50.0f;
+    public GoogleApiClient googleApiClient;
     Activity activity;
     private LocationRequest locationRequest;
-    public GoogleApiClient googleApiClient;
     private Location location;
     private FusedLocationProviderApi fusedLocationProviderApi = LocationServices.FusedLocationApi;
 

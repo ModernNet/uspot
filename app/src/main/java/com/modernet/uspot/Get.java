@@ -60,7 +60,7 @@ public class Get {
         }
     }
 
-    public void getResponse() {
+    private void getResponse() {
         if(!check.isInternetAvailable()){
             Toast.makeText(activity,R.string.internet_not_available,Toast.LENGTH_LONG).show();
             Log.e(TAG,"No network connection available");
@@ -78,6 +78,8 @@ public class Get {
 
     public ArrayList<InterestPoint> getCategoryDataset (String category) {
         try {
+            if(responseXML==null)
+                getResponse();
             GetCategoryDataset getCategoryDataset = new GetCategoryDataset();
             getCategoryDataset.execute(category);
             return getCategoryDataset.get();
@@ -85,6 +87,10 @@ public class Get {
         catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public void freeRAM() {
+        responseXML = null;        
     }
 
     private String[] parseDescription(String textContent) {

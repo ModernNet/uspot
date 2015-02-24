@@ -24,12 +24,12 @@ import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
     private static final String TAG = "MainActivity";
+    public Get get;
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     ActionButton mButton;
     private ArrayList<ArrayList<InterestPoint>> mDataset;
     private Check checker;
-    public Get get;
     private String[] categories;
 
     @Override
@@ -42,8 +42,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         /* Custom font for title of ActionBar
         http://www.tristanwaddington.com/2013/03/styling-the-android-action-bar-with-a-custom-font/
          */
-
-
 
         //fusedLocationService = new FusedLocationService(this);
         checker = new Check(this);
@@ -96,10 +94,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         });
 
         if (checker.isInternetAvailable()) {
-            get.getResponse();
             for(int i=0; i<categories.length; ++i) {
                 mDataset.add(get.getCategoryDataset(categories[i]));
             }
+            get.freeRAM();
             if(!checker.isLocationEnabled()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.location_request_title);

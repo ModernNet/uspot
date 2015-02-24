@@ -27,8 +27,8 @@ public class TabFragment extends Fragment {
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     ArrayList<InterestPoint> mDataset;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     int position;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private ActionButton fab;
     private String [] categories;
 
@@ -94,13 +94,31 @@ public class TabFragment extends Fragment {
                 NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
                 if (networkInfo != null && networkInfo.isConnected()) {
                     // Refresh Tab
-                    TabFragment fragment = (TabFragment)((MainActivity)getActivity()).mSectionsPagerAdapter.getFragment(position);
-                    Get get = ((MainActivity)getActivity()).get;
-                    get.getResponse();
-                    fragment.mDataset = get.getCategoryDataset(categories[position]);
-                    fragment.mAdapter = new MyAdapter(fragment.mDataset,fragment.getActivity());
-                    fragment.mRecyclerView.setAdapter(fragment.mAdapter);
-                    Log.d(TAG,"Updating TAB #" + position);
+                    final TabFragment fragment = (TabFragment)((MainActivity)getActivity()).mSectionsPagerAdapter.getFragment(position);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Get get = ((MainActivity)getActivity()).get;
+                            fragment.mDataset = get.getCategoryDataset(categories[position]);
+                            get.freeRAM();
+                            fragment.mAdapter = new MyAdapter(fragment.mDataset,fragment.getActivity());
+                            fragment.getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    fragment.mRecyclerView.setAdapter(fragment.mAdapter);
+                                }
+                            });
+                            Log.d(TAG,"Updating TAB #" + position);
+                            
+                            mSwipeRefreshLayout.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mSwipeRefreshLayout.setRefreshing(false);
+                                }
+                            });
+                        }
+                    }).start();
+
                 }
                 else
                     Toast.makeText(
@@ -108,7 +126,7 @@ public class TabFragment extends Fragment {
                             "No network connection available.",
                             Toast.LENGTH_SHORT
                     ).show();
-                mSwipeRefreshLayout.setRefreshing(false);
+
             }
         }, 1000);
     }

@@ -2,7 +2,7 @@
 <resources>
 
     <!-- App strings (inside use)-->
-    <string name="app_name">uSpot</string>
+    <string name="app_name">Uspot</string>
     <string name="app_id" translatable="false">08014</string>
     <string name="TokenApp" translatable="false">l7xx3a3a76fb2c184fe388a006f921b84c21</string>
     <string name="title_activity_maps">Map</string>
