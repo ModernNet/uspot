@@ -58,6 +58,7 @@ public class TabFragment extends Fragment {
                 initiateRefresh();
             }
         });
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.primary,R.color.accent_dark,R.color.primary_dark);
 
         fab = (ActionButton) getActivity().findViewById(R.id.fab_button);
         mRecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
