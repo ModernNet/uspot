@@ -88,47 +88,40 @@ public class TabFragment extends Fragment {
     }
 
     public void initiateRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    // Refresh Tab
-                    final TabFragment fragment = (TabFragment)((MainActivity)getActivity()).mSectionsPagerAdapter.getFragment(position);
-                    new Thread(new Runnable() {
+        ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // Refresh Tab
+            final TabFragment fragment = (TabFragment)((MainActivity)getActivity()).mSectionsPagerAdapter.getFragment(position);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Get get = ((MainActivity)getActivity()).get;
+                    fragment.mDataset = get.getCategoryDataset(categories[position]);
+                    get.freeRAM();
+                    fragment.mAdapter = new MyAdapter(fragment.mDataset,fragment.getActivity());
+                    fragment.getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Get get = ((MainActivity)getActivity()).get;
-                            fragment.mDataset = get.getCategoryDataset(categories[position]);
-                            get.freeRAM();
-                            fragment.mAdapter = new MyAdapter(fragment.mDataset,fragment.getActivity());
-                            fragment.getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    fragment.mRecyclerView.setAdapter(fragment.mAdapter);
-                                }
-                            });
-                            Log.d(TAG,"Updating TAB #" + position);
-                            
-                            mSwipeRefreshLayout.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    mSwipeRefreshLayout.setRefreshing(false);
-                                }
-                            });
+                            fragment.mRecyclerView.setAdapter(fragment.mAdapter);
                         }
-                    }).start();
+                    });
+                    Log.d(TAG,"Updating TAB #" + position);
 
+                    mSwipeRefreshLayout.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
+                    });
                 }
-                else
-                    Toast.makeText(
-                            getActivity(),
-                            "No network connection available.",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
-            }
-        }, 1000);
+            }).start();
+        }
+        else
+            Toast.makeText(
+                    getActivity(),
+                    "No network connection available.",
+                    Toast.LENGTH_SHORT
+            ).show();
     }
 }
