@@ -122,11 +122,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-    }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {

@@ -20,8 +20,6 @@ public class FusedLocationService implements
     private static final String TAG = "FusedLocationService";
     private static final long INTERVAL = 1000 * 30;
     private static final long FASTEST_INTERVAL = 1000 * 5;
-    private static final long ONE_MIN = 1000 * 60;
-    private static final long REFRESH_TIME = ONE_MIN * 5;
     private static final float MINIMUM_ACCURACY = 50.0f;
     public GoogleApiClient googleApiClient;
     Activity activity;
@@ -52,17 +50,6 @@ public class FusedLocationService implements
     @Override
     public void onConnected(Bundle connectionHint) {
         location = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-        /*Location currentLocation = fusedLocationProviderApi.getLastLocation(googleApiClient);
-        location = currentLocation;
-            fusedLocationProviderApi.requestLocationUpdates(googleApiClient, locationRequest, this);
-            // Schedule a Thread to unregister location listeners
-            Executors.newScheduledThreadPool(1).schedule(new Runnable() {
-                @Override
-                public void run() {
-                    fusedLocationProviderApi.removeLocationUpdates(googleApiClient,
-                            FusedLocationService.this);
-                }
-            }, ONE_MIN, TimeUnit.MILLISECONDS);*/
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
     }
 
@@ -92,6 +79,15 @@ public class FusedLocationService implements
         // until onConnected() is called.
     }
 
+    public void connect() {
+        googleApiClient.connect();
+        
+    }
+    
+    public void disconnect() {
+        googleApiClient.disconnect();
+    }
+    
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         // This callback is important for handling errors that

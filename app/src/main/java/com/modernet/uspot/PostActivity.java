@@ -86,11 +86,18 @@ public class PostActivity extends ActionBarActivity
     {
         super.onResume();
         Log.i(TAG,"Resuming activity");
+        fusedLocationService.connect();
         //Check if location was turned off during the pause
         Switch auto_loc = (Switch) findViewById(R.id.auto_locate);
         if(!checker.isLocationEnabled() && auto_loc.isChecked()){
             setAutoLocation(false);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fusedLocationService.disconnect();
     }
 
     public void onSubmit(View view)
