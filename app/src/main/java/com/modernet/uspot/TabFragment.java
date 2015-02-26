@@ -58,9 +58,8 @@ public class TabFragment extends Fragment {
             }
         });
         mSwipeRefreshLayout.setColorSchemeResources(
-                R.color.primary,
-                R.color.accent_dark,
-                R.color.fab_material_green_500
+                R.color.accent,
+                R.color.accent_dark
         );
 
         fab = (ActionButton) getActivity().findViewById(R.id.fab_button);
