@@ -36,7 +36,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setElevation(8);
         Log.d(TAG,"MainActivity.onCreate()");
 
         /* Custom font for title of ActionBar

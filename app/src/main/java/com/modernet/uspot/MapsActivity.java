@@ -1,7 +1,6 @@
 package com.modernet.uspot;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -95,15 +94,10 @@ public class MapsActivity extends ActionBarActivity {
     private void setUpMap() {
         Log.i(TAG,"Setting up Map");
 
-        //Color to HSV
-        int acc_col = getResources().getColor(R.color.accent);
-        float [] hue = new float [3];
-        Color.colorToHSV(acc_col,hue);
-
         Marker marker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(lat,lon))
-                .title(name) //Set marker color to accent color
-                .icon(BitmapDescriptorFactory.defaultMarker(hue[0]))
+                        .position(new LatLng(lat, lon))
+                        .title(name) //Set marker color to accent color
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
         );
         marker.showInfoWindow();
 
