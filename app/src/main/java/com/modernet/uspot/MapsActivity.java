@@ -37,13 +37,6 @@ public class MapsActivity extends ActionBarActivity {
         name = main.getStringExtra("name");
         Log.i(TAG,name+":"+lat+","+lon);
 
-       /* LOcation toast
-        Toast.makeText(
-                this,
-                lat + "," + lon,
-                Toast.LENGTH_SHORT
-        ).show();*/
-
         //Set ActionBarTitle
         getSupportActionBar().setTitle(name);
 
@@ -86,6 +79,7 @@ public class MapsActivity extends ActionBarActivity {
     }
 
     /**
+     * TODO: Intent to route directly clicking on the marker (Create new branch)
      * This is where we can add markers or lines, add listeners or move the camera. In this case, we
      * just add a marker near Africa.
      * <p/>
