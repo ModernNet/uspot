@@ -55,7 +55,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="parsing">Parsing data...</string>
+    <string name="parsing">Parsing</string>
     <string name="download">Dowloading data...</string>
 
 </resources>

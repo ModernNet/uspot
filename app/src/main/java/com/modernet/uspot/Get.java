@@ -59,7 +59,7 @@ public class Get {
         }
     }
 
-    private void getResponse() {
+    public void getResponse() {
         if(!check.isInternetAvailable()){
             Toast.makeText(activity,R.string.internet_not_available,Toast.LENGTH_LONG).show();
             Log.e(TAG,"No network connection available");

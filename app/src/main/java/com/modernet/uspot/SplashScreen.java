@@ -2,6 +2,8 @@ package com.modernet.uspot;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ProgressBar;
@@ -23,8 +25,8 @@ public class SplashScreen extends Activity {
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading_Bar);
         progressBar.getIndeterminateDrawable()
                 .setColorFilter(
-                        R.color.primary_dark,
-                        android.graphics.PorterDuff.Mode.MULTIPLY
+                        Color.WHITE,
+                        PorterDuff.Mode.SRC_IN
                 );
         
         new loadData().execute();
@@ -39,16 +41,17 @@ public class SplashScreen extends Activity {
             Check checker = new Check(SplashScreen.this);
             mDataset = new Bundle();
             if (checker.isInternetAvailable()) {
+                get.getResponse();
                 for (int i = 0; i < categories.length; ++i) {
+                    final int finalI = i;
+                    SplashScreen.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView load = (TextView) findViewById(R.id.loading_text);
+                            load.setText(getString(R.string.parsing)+" "+categories[finalI]+"...");
+                        }
+                    });
                     mDataset.putParcelableArrayList(categories[i],get.getCategoryDataset(categories[i]));
-                    if(i==0)
-                        SplashScreen.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                TextView load = (TextView) findViewById(R.id.loading_text);
-                                load.setText(R.string.parsing);
-                            }
-                        });
                 }
                 get.freeRAM();
             } else {
