@@ -19,23 +19,24 @@
         android:id="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
-        android:paddingBottom="5dp">
+        android:paddingBottom="10dp">
         
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/loading_Bar"
-            android:tint="@color/accent"
+            android:layout_gravity="center"
+            style="?android:attr/android:progressBarStyleSmall"
              />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/loading_text"
-            android:text="test..."
-            android:layout_gravity="bottom"
-            android:textSize="40sp"
+            android:text="@string/download"
+            android:layout_gravity="center"
+            android:textSize="18sp"
             android:textColor="@color/text_primary"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginLeft="5dp"/>
         
         </LinearLayout>
 

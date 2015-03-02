@@ -112,6 +112,9 @@ public class Get {
             boolean loc_en = locManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
             if (loc_en)
                 location = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(location==null) {
+                location = new Location(LocationManager.NETWORK_PROVIDER);
+            }
             //Log.d(TAG, "location = ("+String.valueOf(location.getLatitude())+","+String.valueOf(location.getLongitude())+")");
 
             ArrayList<InterestPoint> response = new ArrayList<InterestPoint>();
