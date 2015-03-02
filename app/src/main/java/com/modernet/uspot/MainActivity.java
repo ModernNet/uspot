@@ -24,11 +24,10 @@ import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
     private static final String TAG = "MainActivity";
-    public Get get;
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     ActionButton mButton;
-    private ArrayList<ArrayList<InterestPoint>> mDataset;
+    private Bundle mDataset;
     private Check checker;
     private String[] categories;
 
@@ -37,6 +36,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG,"MainActivity.onCreate()");
+        categories = getResources().getStringArray(R.array.categories);
+        checker = new Check(this);
+        
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -97,7 +99,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             builder.setNegativeButton(android.R.string.cancel,null);
             builder.create().show();
         }
-        if(checker.isInternetAvailable()) {
+        if(!checker.isInternetAvailable()) {
             Toast.makeText(
                     this,
                     R.string.internet_not_available,
@@ -105,6 +107,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             ).show();
             Log.e(TAG, "Network connection not available");
         }
+        Intent intent = getIntent();
+        mDataset = intent.getBundleExtra("mDataset");
     }
 
 
@@ -154,8 +158,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            if(position>=0 && position< categories.length)
-                return newTabFragment(mDataset.get(position),position);
+            if(position>=0 && position< categories.length) {
+                ArrayList<InterestPoint> p = mDataset.getParcelableArrayList(categories[position]);
+                return newTabFragment(p,position);
+            }
             return null;
         }
 

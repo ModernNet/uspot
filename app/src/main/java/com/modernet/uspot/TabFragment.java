@@ -100,7 +100,7 @@ public class TabFragment extends Fragment {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Get get = ((MainActivity)getActivity()).get;
+                    Get get = new Get(getActivity());
                     fragment.mDataset = get.getCategoryDataset(categories[position]);
                     get.freeRAM();
                     fragment.mAdapter = new MyAdapter(fragment.mDataset,fragment.getActivity());

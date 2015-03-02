@@ -9,12 +9,15 @@ import java.util.ArrayList;
 
 public class SplashScreen extends Activity {
 
-    private ArrayList<ArrayList<InterestPoint>> mDataset;
+    private Bundle mDataset;
+    private String[] categories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        categories = getResources().getStringArray(R.array.categories);
+        new loadData().execute();
     }
 
     private class loadData extends AsyncTask <Void,Void,Void> {
@@ -24,16 +27,15 @@ public class SplashScreen extends Activity {
         protected Void doInBackground(Void... params) {
             Get get = new Get(SplashScreen.this);
             Check checker = new Check(SplashScreen.this);
-            String[] categories = getResources().getStringArray(R.array.categories);
-            mDataset = new ArrayList<ArrayList<InterestPoint>>();
+            mDataset = new Bundle();
             if (checker.isInternetAvailable()) {
                 for (int i = 0; i < categories.length; ++i) {
-                    mDataset.add(get.getCategoryDataset(categories[i]));
+                    mDataset.putParcelableArrayList(categories[i],get.getCategoryDataset(categories[i]));
                 }
                 get.freeRAM();
             } else {
                 for(int i=0; i<categories.length; ++i)
-                    mDataset.add(new ArrayList<InterestPoint>());
+                    mDataset.putParcelableArrayList(categories[i],new ArrayList<InterestPoint>());
             }
             return null;
         }
@@ -44,6 +46,7 @@ public class SplashScreen extends Activity {
             Intent main = new Intent(SplashScreen.this,MainActivity.class);
             main.putExtra("mDataset",mDataset);
             startActivity(main);
+            finish();
         }
     }
 
