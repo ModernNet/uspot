@@ -38,16 +38,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         setContentView(R.layout.activity_main);
         Log.d(TAG,"MainActivity.onCreate()");
 
-        /* Custom font for title of ActionBar
-        http://www.tristanwaddington.com/2013/03/styling-the-android-action-bar-with-a-custom-font/
-         */
-
-        //fusedLocationService = new FusedLocationService(this);
-        checker = new Check(this);
-        get = new Get(this);
-        categories = getResources().getStringArray(R.array.categories);
-        mDataset = new ArrayList<ArrayList<InterestPoint>>();
-
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -92,32 +82,28 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             }
         });
 
-        if (checker.isInternetAvailable()) {
-            for(int i=0; i<categories.length; ++i) {
-                mDataset.add(get.getCategoryDataset(categories[i]));
-            }
-            get.freeRAM();
-            if(!checker.isLocationEnabled()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.location_request_title);
-                builder.setMessage(R.string.location_request_message_start);
-                builder.setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent settings = new Intent("com.google.android.gms.location.settings.GOOGLE_LOCATION_SETTINGS");
-                        startActivity(settings);
-                    }
-                });
-                builder.setNegativeButton(android.R.string.cancel,null);
-                builder.create().show();
-            }
-        }
-        else {
-            for(int i=0; i<categories.length; ++i)
-                mDataset.add(new ArrayList<InterestPoint>());
 
-            Toast.makeText(this,R.string.internet_not_available,Toast.LENGTH_SHORT).show();
-            Log.e(TAG,"Network connection not available");
+        if(!checker.isLocationEnabled()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.location_request_title);
+            builder.setMessage(R.string.location_request_message_start);
+            builder.setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent settings = new Intent("com.google.android.gms.location.settings.GOOGLE_LOCATION_SETTINGS");
+                    startActivity(settings);
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel,null);
+            builder.create().show();
+        }
+        if(checker.isInternetAvailable()) {
+            Toast.makeText(
+                    this,
+                    R.string.internet_not_available,
+                    Toast.LENGTH_SHORT
+            ).show();
+            Log.e(TAG, "Network connection not available");
         }
     }
 
