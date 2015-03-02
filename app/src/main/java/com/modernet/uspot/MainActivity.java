@@ -24,11 +24,10 @@ import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
     private static final String TAG = "MainActivity";
-    public Get get;
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
     ActionButton mButton;
-    private ArrayList<ArrayList<InterestPoint>> mDataset;
+    private Bundle mDataset;
     private Check checker;
     private String[] categories;
 
@@ -37,16 +36,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG,"MainActivity.onCreate()");
-
-        /* Custom font for title of ActionBar
-        http://www.tristanwaddington.com/2013/03/styling-the-android-action-bar-with-a-custom-font/
-         */
-
-        //fusedLocationService = new FusedLocationService(this);
-        checker = new Check(this);
-        get = new Get(this);
         categories = getResources().getStringArray(R.array.categories);
-        mDataset = new ArrayList<ArrayList<InterestPoint>>();
+        checker = new Check(this);
+        
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -92,33 +84,31 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             }
         });
 
-        if (checker.isInternetAvailable()) {
-            for(int i=0; i<categories.length; ++i) {
-                mDataset.add(get.getCategoryDataset(categories[i]));
-            }
-            get.freeRAM();
-            if(!checker.isLocationEnabled()) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.location_request_title);
-                builder.setMessage(R.string.location_request_message_start);
-                builder.setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent settings = new Intent("com.google.android.gms.location.settings.GOOGLE_LOCATION_SETTINGS");
-                        startActivity(settings);
-                    }
-                });
-                builder.setNegativeButton(android.R.string.cancel,null);
-                builder.create().show();
-            }
-        }
-        else {
-            for(int i=0; i<categories.length; ++i)
-                mDataset.add(new ArrayList<InterestPoint>());
 
-            Toast.makeText(this,R.string.internet_not_available,Toast.LENGTH_SHORT).show();
-            Log.e(TAG,"Network connection not available");
+        if(!checker.isLocationEnabled()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.location_request_title);
+            builder.setMessage(R.string.location_request_message_start);
+            builder.setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent settings = new Intent("com.google.android.gms.location.settings.GOOGLE_LOCATION_SETTINGS");
+                    startActivity(settings);
+                }
+            });
+            builder.setNegativeButton(android.R.string.cancel,null);
+            builder.create().show();
         }
+        if(!checker.isInternetAvailable()) {
+            Toast.makeText(
+                    this,
+                    R.string.internet_not_available,
+                    Toast.LENGTH_SHORT
+            ).show();
+            Log.e(TAG, "Network connection not available");
+        }
+        Intent intent = getIntent();
+        mDataset = intent.getBundleExtra("mDataset");
     }
 
 
@@ -168,8 +158,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            if(position>=0 && position< categories.length)
-                return newTabFragment(mDataset.get(position),position);
+            if(position>=0 && position< categories.length) {
+                ArrayList<InterestPoint> p = mDataset.getParcelableArrayList(categories[position]);
+                return newTabFragment(p,position);
+            }
             return null;
         }
 

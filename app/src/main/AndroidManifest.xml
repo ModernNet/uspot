@@ -20,19 +20,15 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.modernet.uspot.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
-            android:name="com.modernet.uspot.PostActivity"
+            android:name=".PostActivity"
             android:label="@string/title_activity_post"
-            android:parentActivityName="com.modernet.uspot.MainActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.modernet.uspot.MainActivity" />
@@ -43,11 +39,20 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.modernet.uspot.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.modernet.uspot.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
