@@ -17,6 +17,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:textColor="@color/text"
         android:layout_toLeftOf="@+id/categories"
         android:hint="@string/name"/>
 
@@ -31,6 +32,7 @@
 
     <EditText
         android:id="@+id/description"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -46,6 +48,7 @@
 
     <EditText
         android:id="@+id/adress"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/description"
