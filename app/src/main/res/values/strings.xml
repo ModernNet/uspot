@@ -54,6 +54,6 @@
 
     <!--Splash Screen text-->
     <string name="parsing">Parsing</string>
-    <string name="download">Dowloading data...</string>
+    <string name="download">Downloading data...</string>
 
 </resources>
