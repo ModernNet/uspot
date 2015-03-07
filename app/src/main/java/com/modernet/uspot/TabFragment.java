@@ -101,6 +101,7 @@ public class TabFragment extends Fragment {
                 @Override
                 public void run() {
                     Get get = new Get(getActivity());
+                    get.getResponse();
                     fragment.mDataset = get.getCategoryDataset(categories[position]);
                     get.freeRAM();
                     fragment.mAdapter = new MyAdapter(fragment.mDataset,fragment.getActivity());
@@ -121,11 +122,13 @@ public class TabFragment extends Fragment {
                 }
             }).start();
         }
-        else
+        else {
             Toast.makeText(
                     getActivity(),
                     "No network connection available.",
                     Toast.LENGTH_SHORT
             ).show();
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 }

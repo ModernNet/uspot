@@ -7,8 +7,8 @@ android {
         applicationId "com.modernets.projectpluto"
         minSdkVersion 19
         targetSdkVersion 21
-        versionCode 5
-        versionName 'v1.0.3'
+        versionCode 6
+        versionName 'v1.0.4'
     }
     buildTypes {
         release {
