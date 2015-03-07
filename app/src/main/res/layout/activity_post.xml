@@ -32,6 +32,7 @@
 
     <EditText
         android:id="@+id/description"
+        android:gravity="top|start"
         android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
