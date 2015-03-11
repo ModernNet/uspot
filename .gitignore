@@ -30,4 +30,7 @@ proguard/
 # Log Files
 *.log
 
+#media files
+*.mp4
+Screenshot*.png
 
