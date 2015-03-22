@@ -50,10 +50,11 @@
     <string name="confirmation_title">Are you sure?</string>
     <string name="confirmation_message">Once you confirm, you won\'t be able to modify any of this information</string>
     <string name="confirmation_positive">Confirm</string>
-    <string name="location_request_message_start">Please enable location and refresh the tab, in order to see the distance from you current position to the points</string>
+    <string name="location_request_message_start">We recommend you to enable location for a better use of the app</string>
 
     <!--Splash Screen text-->
     <string name="parsing">Parsing</string>
     <string name="download">Downloading data...</string>
+    <string name="no_thanks">No, thanks</string>
 
 </resources>

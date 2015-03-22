@@ -1,7 +1,5 @@
 package com.modernet.uspot;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -83,22 +81,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 startActivity(postActivity);
             }
         });
-
-
-        if(!checker.isLocationEnabled()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.location_request_title);
-            builder.setMessage(R.string.location_request_message_start);
-            builder.setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent settings = new Intent("com.google.android.gms.location.settings.GOOGLE_LOCATION_SETTINGS");
-                    startActivity(settings);
-                }
-            });
-            builder.setNegativeButton(android.R.string.cancel,null);
-            builder.create().show();
-        }
+        
         if(!checker.isInternetAvailable()) {
             Toast.makeText(
                     this,

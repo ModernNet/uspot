@@ -1,6 +1,8 @@
 package com.modernet.uspot;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -28,8 +30,37 @@ public class SplashScreen extends Activity {
                         Color.WHITE,
                         PorterDuff.Mode.SRC_IN
                 );
-        
-        new loadData().execute();
+    }
+
+    private void checkAndDownload() {
+        Check checker = new Check(this);
+        if(!checker.isLocationEnabled()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.location_request_title);
+            builder.setMessage(R.string.location_request_message_start);
+            builder.setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent settings = new Intent("com.google.android.gms.location.settings.GOOGLE_LOCATION_SETTINGS");
+                    startActivity(settings);
+                }
+            });
+            builder.setNegativeButton(R.string.no_thanks, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    new loadData().execute();
+                }
+            });
+            builder.create().show();
+        } else {
+            new loadData().execute();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkAndDownload();
     }
 
     private class loadData extends AsyncTask <Void,Void,Void> {

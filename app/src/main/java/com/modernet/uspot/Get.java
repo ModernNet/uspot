@@ -141,8 +141,8 @@ public class Get {
                 if(!loc_en) interestPoint.distance = -1;
 
                 //Discrimina POIs llunyans... Xq Quim? Distancista!!
-                if(interestPoint.distance<500000)
-                    response.add(interestPoint);
+                //if(interestPoint.distance<500000)
+                response.add(interestPoint);
             }
 
             // Sorting by distance
